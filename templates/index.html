@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block table_index %}
+<!-- Table -->
+<div class="w3-container">
+  <!-- Table headings -->
+  <h2>Прогноз включения или отключения отопления в городах СНГ</h2>
+  <p>Выберите город из списка или наберите название в поиске.</p>
+  <!-- Search box -->
+  <input class="w3-input w3-border w3-padding" type="text" placeholder="Поиск по городам.." id="myInput" onkeyup="myFunction()">
+  <!-- Table body -->
+  <div style="height:485px;overflow:auto;">
+    <table class="w3-table-all w3-margin-top" id="myTable">
+      <!-- Columns -->
+      <tr>
+        <th style="width:60%;">Город</th>
+        <th style="width:40%;">Страна</th>
+      </tr>
+      <!-- Rows -->
+      {% for region in regions %}
+      <tr>
+        <td><a href="{{ url_for('region') }}?region={{ region[0] }}" style="text-decoration: none;
+    display: block; width: 100%; height: 100%;">{{ region[0] }}</a></td>
+        <td>{{ region[1] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <p><strong>Подсказка:</strong> Список можно прокрутить.</p>
+</div>
+{% endblock %}

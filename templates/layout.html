@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<title>{{ title }}</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+
+.listblock ul li a {
+    padding: 5px 30px 5px 10px;
+    display: block;
+}
+
+.listblock ul li a:hover {
+    background: transparent url('../img/basket.png') no-repeat 3px 170px;
+}
+
+.chart {
+    margin-top: 30px;
+    text-align: center;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <a href="{{ url_for('index') }}" class="w3-bar-item w3-button w3-theme-l1"><i class='fas fa-temperature-high'></i></a>
+    <a href="#FAQ" class="w3-bar-item w3-button w3-hide-small w3-hover-white">FAQ</a>
+    <a href="#APP" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Приложение</a>
+    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>-->
+    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>-->
+    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Clients</a>-->
+    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Partners</a>-->
+  </div>
+</div>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <h4 class="w3-bar-item"><b>Меню</b></h4>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#FAQ">FAQ</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="#APP">Приложение</a>
+  <!--<a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>-->
+  <!--<a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>-->
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+
+  <!-- First block -->
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Мониторинг погоды</h1>
+        {% block table_index %}{% endblock %}
+        <!-- Heating date box -->
+        {% block date %}{% endblock %}
+        {% block date_tip %}{% endblock %}
+
+        <!-- Plotly graph -->
+        {% block graph %}{% endblock %}
+
+        {% block table_region %}{% endblock %}
+
+    <!-- Table ads -->
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+    </div>
+
+  <!-- Second block -->
+  <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 id="FAQ" class="w3-text-teal">FAQ</h1>
+      <p><b>Как пользоваться сайтом?</b></p>
+      <p>Найдите нужный город в списке, и узнайте приблизительную дату включения или
+      отключения отопления.</p>
+      <p><b>Разве отопление включают не по графику?</b></p>
+      <p>Многие думают, что отопление в домах включают или отключают по графику.
+        На деле же старт отопительного сезона привязан к погоде.
+        На территории СНГ
+        действует правило +8°С (оно прописано в разных официальных документах,
+        в России, например, <a href="http://gov.garant.ru/SESSION/PILOT/main.htm">здесь</a>):
+        если среднесуточная температура продержится ниже этой отметки пять дней подряд,
+        то на следующий день, чаще всего, местные власти объявляют о начале отопительного сезона.</p>
+      <p><b>Значит, отопление включают, когда на улице холодно?</b></p>
+      <p>Не всегда. За основу берется <b>среднесуточная</b> температура, поэтому если днем
+        все еще тепло, а ночью мороз, то придется на какое-то время обложится обогревателями.</p>
+      <p><b>Это государственный ресурс?</b></p>
+      <p>Нет, это независимый проект. Официальных ресурсов на эту тему пока нет.</p>
+      <p><b>Где вы берете данные?</b></p>
+      <p>Сайт собирает исторические погодные данные и отслеживает пятидневный прогноз от международного сервиса
+        <a href="https://openweathermap.org">OpenWeatherMap</a>, который обновляется
+        каждые три часа.</p>
+      <p><b>Почему прогноз не совпадает с реальной датой включения отопления?</b></p>
+      <p>Часто отопление включают на несколько дней раньше нормы по решению местных
+      властей. Поэтому дата, которую вы видите, можете не совпадать с реальной датой
+      включения или отключения отопления.</p>
+      <p><b>Почему нет моего города?</b></p>
+      <p>На сайте собраны все региональные центры России, Украины, Беларуси и Казахстана. Обычно
+      старт отопительного сезона начинается по всей области сразу, поэтому можете ориентироваться
+      по своей столице.</p>
+      <p><b>Есть ли у сайта приложение?</b></p>
+      <p><a href="https://goo.gl/xKh7it">Есть</a>, но пока только для iOS.</p>
+
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <!-- Third block -->
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1 id="APP" class="w3-text-teal">Приложение для iOS</h1>
+      <p>У сайта есть свое приложение, но пока только для iOS. Там все то же самое, только лучше и
+      удобнее.</p>
+    <a href="https://goo.gl/xKh7it"><img src="/static/app_button.svg" alt="" class="app_button"></a>
+    </div>
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+  </div>
+
+  <footer id="myFooter">
+    <div class="w3-container w3-theme-l2 w3-padding-32">
+      <h4>Прогноз включения и отключения отопления в России, Украине, Беларуси и Казахстане.</h4>
+      <h4>Контакты: <a href="mailto:heatingproject.py@gmail.com">heatingproject.py@gmail.com</a></h4>
+    </div>
+
+    <div class="w3-container w3-theme-l1">
+      <p>© 2018 – 2019 Heating Project ® All rights reserved.</p>
+    </div>
+  </footer>
+
+<!-- END MAIN -->
+</div>
+
+</body>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+<!-- D3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Plotly.js -->
+<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+
+<script type="text/javascript">
+
+    var graphs = {{ graphJSON | safe }};
+
+    Plotly.plot('chart',graphs,{});
+
+</script>
+
+</html>
