@@ -109,7 +109,7 @@ def region():
 	return render_template("region.html", regions=sorted(region_names), title=title,
 						   heating_date=heating_message, region_title=heating_region, x=x, y=y)
 
-@app.route("/jsonforapp")
+@app.route("/urlforjsonqueries")
 def json():
 	"""
 	Internal API for mobile app. Output region data in JSON for given region via
