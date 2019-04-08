@@ -55,7 +55,7 @@ Current temperature for different time intervals is saved to database. In total 
 >>> today forecast = [saved intervals] +/
 [forecast intervals]
 ```
-**forecast.py**is intended to run in background on a server every 3-hours. See bash files, that handle this work:
+**forecast.py** is intended to run in background on a server every 3-hours. See bash files, that handle this work:
 ```
 $ ./forecast.sh
 ```
