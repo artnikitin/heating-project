@@ -30,7 +30,7 @@ $ flask run
 
 Select a city from the table and get heating date forecast on the next page. A 10-day weather window is displayed in a Plotly graph. FAQ section answers frequently asked questions about central heating in CIS countries.
 
-![Alt text](https://media.giphy.com/media/Kf4x5DAsqviInxUBIu/giphy.gif)
+![Alt text](https://media.giphy.com/media/dBmWDCljNyLb9Xzxcc/giphy.gif)
 
 ### API
 
