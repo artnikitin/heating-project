@@ -27,8 +27,8 @@ class Region:
 		con = sqlite3.connect(self.database)
 		db = con.cursor()
 		mytuples = (self.id,)
-		db.execute("""SELECT date, temp FROM history WHERE region_id = ?
-		ORDER BY date DESC LIMIT 5""", mytuples)
+		db.execute("""SELECT * FROM (SELECT date, temp FROM history WHERE 
+		region_id = ? ORDER BY date DESC LIMIT 5) ORDER BY date ASC""", mytuples)
 		data = db.fetchall()
 		db.close()
 		return {to_datetime(k, time=False):v for k,v in dict(data).items()}
