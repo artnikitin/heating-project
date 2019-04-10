@@ -77,14 +77,26 @@ def region():
 	# russian language sensitive cases for season and heating date
 	if heating_date and spring():
 		if 'Влад' in heating_region:
-			heating_message = "Отопление во {} отключат {}.*".format(heating_region, heating_date)
+			if last_date == 1:
+				heating_message = "Отопление во {} должны были отключить {}.*".format(heating_region, heating_date)
+			else:
+				heating_message = "Отопление во {} отключат {}.*".format(heating_region, heating_date)
 		else:
-			heating_message = "Отопление в {} отключат {}.*".format(heating_region, heating_date)
+			if last_date == 1:
+				heating_message = "Отопление в {} должны были отключить {}.*".format(heating_region, heating_date)
+			else:
+				heating_message = "Отопление в {} отключат {}.*".format(heating_region, heating_date)
 	if heating_date and not spring():
 		if 'Влад' in heating_region:
-			heating_message = "Отопление во {} включат {}.*".format(heating_region, heating_date)
+			if last_date == 1:
+				heating_message = "Отопление во {} должны были включить {}.*".format(heating_region, heating_date)
+			else:
+				heating_message = "Отопление во {} включат {}.*".format(heating_region, heating_date)
 		else:
-			heating_message = "Отопление в {} включат {}.*".format(heating_region, heating_date)
+			if last_date == 1:
+				heating_message = "Отопление в {} должны были включить {}.*".format(heating_region, heating_date)
+			else:
+				heating_message = "Отопление в {} включат {}.*".format(heating_region, heating_date)
 
 	# page title
 	if 'Влад' in heating_region:
