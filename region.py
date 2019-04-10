@@ -28,7 +28,7 @@ class Region:
 		db = con.cursor()
 		mytuples = (self.id,)
 		db.execute("""SELECT * FROM (SELECT date, temp FROM history WHERE 
-		region_id = ? ORDER BY date DESC LIMIT 5) ORDER BY date ASC""", mytuples)
+		region_id = ? ORDER BY id DESC LIMIT 5) ORDER BY date ASC""", mytuples)
 		data = db.fetchall()
 		db.close()
 		return {to_datetime(k, time=False):v for k,v in dict(data).items()}
